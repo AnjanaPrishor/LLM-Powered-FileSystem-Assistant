@@ -30,9 +30,41 @@ from __future__ import annotations
 import json
 import os
 import sys
+from pathlib import Path
 from typing import Any, Callable
 
 from fs_tools import read_file, list_files, write_file, search_in_file
+
+
+# ---------------------------------------------------------------------------
+# 0. .env loader (no external dependency)
+# ---------------------------------------------------------------------------
+
+def _load_dotenv(path: Path | None = None) -> None:
+    """
+    Populate os.environ from a .env file if present. Existing environment
+    variables always win, so `$env:OPENAI_API_KEY = "..."` still overrides
+    the file. Silently no-ops when the file doesn't exist.
+    """
+    env_path = path or Path(__file__).resolve().parent / ".env"
+    if not env_path.is_file():
+        return
+    try:
+        for raw in env_path.read_text(encoding="utf-8").splitlines():
+            line = raw.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            if key and key not in os.environ:
+                os.environ[key] = value
+    except OSError:
+        # Never let a bad .env crash the CLI; just skip loading.
+        pass
+
+
+_load_dotenv()
 
 
 # ---------------------------------------------------------------------------
@@ -190,7 +222,11 @@ MAX_TOOL_ITERATIONS = 8
 
 def _get_client():
     """Import + construct the OpenAI client lazily so --dry-run works
-    without the package or API key installed."""
+    without the package or API key installed.
+
+    Supports OpenAI-compatible providers (OpenRouter, Azure OpenAI proxy,
+    local LLMs, etc.) via the OPENAI_BASE_URL environment variable.
+    """
     try:
         from openai import OpenAI
     except ImportError as exc:
@@ -205,6 +241,10 @@ def _get_client():
             "  Windows (persistent):  setx OPENAI_API_KEY \"sk-...\"\n"
             "  Windows (this shell):  $env:OPENAI_API_KEY = \"sk-...\""
         )
+
+    base_url = os.environ.get("OPENAI_BASE_URL")
+    if base_url:
+        return OpenAI(api_key=api_key, base_url=base_url)
     return OpenAI(api_key=api_key)
 
 

@@ -1,0 +1,28 @@
+# --- Python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# --- Editors / OS -----------------------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Secrets ----------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# --- Project artifacts ------------------------------------------------------
+# `output/` is created on demand by write_file and holds run artifacts only.
+output/
+
+# Test-suite scratch resumes. The generator script (scripts/generate_sample_resumes.py)
+# and the smoke tests recreate these on the fly, so we don't commit them.
+# The named resume_*.pdf / resume_*.docx dummy resumes ARE tracked.
+sample_data/resume.pdf
+sample_data/resume.docx
+sample_data/unsupported.xyz

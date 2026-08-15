@@ -1,0 +1,25 @@
+Maria Garcia
+Data Analyst
+
+Location: Madrid, Spain
+Email: maria.garcia@example.com
+
+Summary:
+Data analyst with 4 years turning messy datasets into business dashboards.
+Strong SQL and Python; comfortable presenting to non-technical stakeholders.
+
+Experience:
+- Senior Data Analyst, BlueMetric Analytics (2023 - present)
+  * Built 20+ Looker dashboards driving weekly revenue reviews
+  * Wrote Python ETL jobs pulling from Stripe, HubSpot, and Postgres
+- Data Analyst, Iberia Retail (2021 - 2023)
+  * Owned the weekly sales forecast in Excel and Python (pandas)
+  * Trained store managers on new Tableau reports
+
+Skills: SQL, Python, pandas, Tableau, Looker, Excel, Google BigQuery, A/B testing
+
+Education:
+- M.Sc. Business Analytics, IE Business School, 2021
+- B.A. Economics, Universidad Complutense de Madrid, 2019
+
+Languages: Spanish (native), English (fluent), Portuguese (basic)
