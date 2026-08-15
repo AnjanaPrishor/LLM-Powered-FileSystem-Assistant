@@ -1,0 +1,2 @@
+Hello from write_file!
+Second line.

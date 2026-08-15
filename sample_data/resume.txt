@@ -1,0 +1,12 @@
+Jane Doe
+Senior Python Developer
+
+Experience:
+- 6 years of Python and backend engineering
+- Built ML pipelines with pandas and scikit-learn
+- Led migration from monolith to microservices
+
+Skills: Python, FastAPI, Docker, AWS, SQL, LLMs
+
+Education:
+- B.S. Computer Science, State University, 2018
